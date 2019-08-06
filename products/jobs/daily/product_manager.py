@@ -9,12 +9,12 @@ class Job(DailyJob):
     def execute(self):
         deal = Deal.objects.get(is_published=True)
         try:
-            next_deal = Deal.objects.get(published_date=timezone.now)
+            next_deal = Deal.objects.filter(published_date=timezone.now())[0]
         except:
-            print ("no deals for today")
+            print ("no deals found for today")
         else:
+            print (next_deal)                        
             deal.is_published = False
             deal.save()
             next_deal.is_published = True
-            next_deal.save()
-            print ("Deals %s unpublished and deal %s published") % (deal.id, next_deal.id)
+            next_deal.save()            

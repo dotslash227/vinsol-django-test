@@ -3,6 +3,7 @@ from django.views import View
 from django.contrib.auth import login, logout, authenticate
 from .models import Deal
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 class AuthPage(View):
     def get(self, request):
@@ -34,7 +35,11 @@ def logoutView(request):
 
 @login_required
 def dealPage(request):
-    deal = Deal.objects.filter(is_published=True).order_by("-pk")[0]
+    try: 
+        deal = Deal.objects.filter(is_published=True, published_date=timezone.now).order_by("-pk")[0]
+    except:
+        messages.add_message(request, messages.INFO, "No deals published today")
+        deal = None
 
     return render(request, "index.html", {
         "deal": deal
