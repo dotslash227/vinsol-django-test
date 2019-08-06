@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Deal of the day {% endblock title %}
+
+{% block content %}
+<h4><a href="{% url 'products:logout' %}">Signout</a></h4>
+
+<h1>Deal of the day</h1>
+<hr />
+
+{% if deal.image %}
+    <img src={{deal.image.url}} />
+{% endif %}
+
+Title : {{deal.title}}<br /><br />
+Description : {{deal.description}} <br /><br />
+Price : <strike>INR{{deal.price}}</strike> INR{{deal.discounted_price}}<br /><br />
+Available Quantities : {{deal.quantity}}
+
+<br /><br />
+
+<form name="buy-button" action="{% url 'orders:place-order' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="dealId" value="{{deal.pk}}" />
+    <input type="submit" value="Buy Now" />
+</form>
+
+{% endblock content %}

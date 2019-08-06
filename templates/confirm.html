@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Confirm Order {{order.id}}{% endblock title %}
+
+{% block content %}
+<h1>Please view your Order and click to procees to payment</h1>
+<hr />
+
+Order Name : {{order.deal.title}}<br /><br />
+Order Price : {{order.deal.discounted_price}}<br /><br />
+Your discount : {{order.additional_discount}}%<br /><br />
+Final Price : {{order.final_price}}<br /><br />
+
+<hr />
+<form name="confirm-order" action="{% url 'orders:confirm-order' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="orderId" value={{order.id}} />
+    {% if order.confirmed == "No" %}
+        <input type="submit" value="Confirm Order and Make Payment" />
+    {% else %}  
+        <input type="submit" disabled value="Your order has been placed" />
+    {% endif %}
+</form>
+
+{% endblock content %}

@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>{% block title %}{% endblock title %} - Vinsol Test</title>
+    </head>
+    <body>
+        {% if messages %}
+            {% for each in messages %}
+                <p style="color:red;">{{each}}</p>
+            {% endfor %}        
+        {% endif %}
+        
+        {% block content %}
+        {% endblock content %}
+    </body>
+</html>
