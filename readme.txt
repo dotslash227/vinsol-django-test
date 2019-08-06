@@ -18,3 +18,6 @@ Scripts inside products/jobs/daily are meant to be executed on daily basis
 And can be executed by putting the command "python manage.py runjobs daily" in a crontab or cronjob for 10AM everyday
 
 Crontab for 10AM Everyday command : '* 10 * * * python manage.py runjobs daily'
+
+Assumptions Made : 
+1. Discount to be given to the user on recurring buying is on top of the discounted price feeded for the deal in the admin section
