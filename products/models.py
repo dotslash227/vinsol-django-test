@@ -1,7 +1,5 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
-
 
 class Deal(models.Model):
     date_added = models.DateField(default=timezone.now)
@@ -9,7 +7,7 @@ class Deal(models.Model):
         (True, "Yes"),
         (False, "No")
     ), default=False)
-    published_date = models.DateField(default=None)
+    published_date = models.DateField(default=None, unique=True)
     title = models.CharField(max_length=100)
     description = models.TextField(default="Add some description")
     price = models.FloatField(default=0)
